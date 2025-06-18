@@ -24,6 +24,10 @@ Nosso projeto tem como objetivo desenvolver um sistema em duas frentes: uma que 
 
 Do ponto de vista técnico, o projeto tem como objetivo explorar o uso de tecnologias de dados para representar, modelar e analisar redes ecológicas , capturando as múltiplas interações entre plantas, pragas, insetos benéficos e nutrientes. Além disso, busca-se demonstrar a viabilidade e a eficiência da integração entre o banco de dados orientado a grafos Neo4j, o banco de dados orientadora documentos MongoDB e o ambiente de processamento distribuído Apache Spark, aproveitando os pontos fortes de cada tecnologia na manipulação, análise e extração de conhecimento a partir de grandes volumes de dados inter-relacionados.
 
+**FLUXOGRAMA**
+
+![image](https://github.com/user-attachments/assets/1c47097a-e319-405d-a406-ac3253139578)
+
 **FONTES**
 
 1. Companion Planting | Portland Nursery. Disponível em: <https://www.portlandnursery.com/veggies/companion-planting>.
