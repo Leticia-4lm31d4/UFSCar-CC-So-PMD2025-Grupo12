@@ -57,7 +57,7 @@ Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artig
 
 ### **4. FLUXOGRAMA**
 
-![image](https://github.com/user-attachments/assets/1c47097a-e319-405d-a406-ac3253139578)
+![image](https://github.com/user-attachments/assets/c13824da-ede9-4ac9-8fc5-b50d88a55e65)
 
 ### **5. Consultas**
 
