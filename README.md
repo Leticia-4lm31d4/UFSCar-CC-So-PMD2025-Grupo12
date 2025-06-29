@@ -23,9 +23,21 @@ Além das relações diretas entre plantas, outros elementos entram nesse ecossi
 
 ### **2. OBJETIVO** 
 
-Nosso projeto tem como objetivo desenvolver um sistema em duas frentes: uma que explore as relações ecológicas entre plantas no contexto agrícola, considerando aspectos como relações de plantas companheiras, plantas antagônicas, interações com pragas, relação com insetos benéficos e fornecimento de nutrientes, como plantas que fixam nitrogênio ou umidade (água). Com isso, nossa proposta visa gerar insights úteis para agricultores, pesquisadores e profissionais da agricultura sustentável, permitindo uma melhor tomada de decisão no planejamento de cultivos consorciados, proteção do solo e aumento da produtividade de forma ecológica. Enquanto a outra frente visa uma análise de mercado agrícola por região, contendo dados e métricas de produção das culturas em anos anteriores, para assim auxiliar a tomada de decisão quanto a qual cultura investir, avaliando o crescimento em cada setor agrícola. Portanto, uma frente visa auxiliar a tomada de decisão sobre qual cultura investir e plantar, enquanto a outra visa explorar as relações entre culturas para auxiliar e otimizar a produção da mesma.
+O principal objetivo deste projeto é desenvolver um sistema de apoio à decisão para o setor agrícola com duas frentes complementares:
 
-Do ponto de vista técnico, o projeto tem como objetivo explorar o uso de tecnologias de dados para representar, modelar e analisar redes ecológicas , capturando as múltiplas interações entre plantas, pragas, insetos benéficos e nutrientes. Além disso, busca-se demonstrar a viabilidade e a eficiência da integração entre o banco de dados orientado a grafos Neo4j, o banco de dados orientadora documentos MongoDB e o ambiente de processamento distribuído Apache Spark, aproveitando os pontos fortes de cada tecnologia na manipulação, análise e extração de conhecimento a partir de grandes volumes de dados inter-relacionados.
+1. **Frente de Análise de Mercado:** Realizar análises de produção agrícola por região, com base em dados históricos de culturas. Essa frente busca fornecer suporte à decisão quanto à escolha de culturas mais promissoras para investimento e onde plantar elas, com base em métricas como crescimento, demanda e produtividade.
+
+2. **Frente Ecológica:** Modelar e analisar as relações ecológicas entre plantas, considerando aspectos como:
+- Cultivos companheiros e antagônicos;
+- Interações com pragas e insetos benéficos;
+- Papel de plantas no fornecimento de nutrientes, como fixação de nitrogênio e retenção de umidade no solo.
+
+Essa frente visa auxiliar agricultores e pesquisadores no planejamento de cultivos consorciados, promovendo práticas sustentáveis, aumento da produtividade e proteção ambiental.
+
+Já os objetivos técnicos são:
+- Representar e analisar redes ecológicas complexas utilizando bancos de dados orientados a grafos (Neo4j);
+- Integrar as tecnologias de dados Neo4j, MongoDB e Apache Spark;
+- Demonstrar a viabilidade técnica dessa arquitetura híbrida, explorando o melhor de cada tecnologia no contexto da agricultura de precisão e sustentável.
 
 ### **3. TECNOLOGIAS**
 
