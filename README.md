@@ -1,34 +1,85 @@
 **UNIVERSIDADE FEDERAL DE SÃO CARLOS - *CAMPUS* SOROCABA** <br>
 **CIÊNCIA DA COMPUTAÇÃO** <br>
 **PROCESSAMENTO MASSIVO DE DADOS** <br>
+PROFª. DRª. SAHUDY MONTENEGRO GONZÁLEZ
+
+---
 
 **PROJETO PRÁTICO** 
 
+Grupo 12<br>
 Relações de plantas e animais para cultivo eficiente <br>
-Grupo 12 <br> 
 
 **INTEGRANTES**
 
 - Felipe Ottoni Pereira
 - Letícia Almeida Paulino de Alencar Ferreira
 
-**DESCRIÇÃO DO TEMA** 
+### **1. DESCRIÇÃO DO TEMA** 
 
 O plantio companheiro é uma prática agrícola baseada na combinação de diferentes espécies vegetais em um mesmo espaço, visando benefícios mútuos. Essa técnica contribui para a sustentabilidade da produção, pois reduz o uso de insumos químicos, melhora a saúde do solo e promove o controle natural de pragas. As interações entre as plantas podem ser benéficas, quando uma espécie auxilia no desenvolvimento da outra, seja repelindo pragas, atraindo polinizadores ou melhorando a disponibilidade de nutrientes, ou antagônicas, quando uma prejudica o desenvolvimento da outra, seja por competição por recursos, alelopatia ou atração de pragas indesejadas.
 
 Além das relações diretas entre plantas, outros elementos entram nesse ecossistema agrícola, como insetos benéficos, que polinizam ou predam pragas, pragas específicas, que podem ser repelidas ou atraídas pelas plantas, nutrientes do solo, cuja disponibilidade pode ser alterada por algumas espécies, como as leguminosas, que fixam nitrogênio. Nesse sentido, entender essas relações pode fornecer insights úteis para práticas agrícolas mais produtivas, resilientes e sustentáveis, promovendo um manejo mais inteligente do solo e das espécies cultivadas. Dado que essas relações formam uma rede complexa de interações biológicas, o uso de tecnologias de dados é interessante para mapear, analisar e extrair conhecimento desse sistema.
 
-**OBJETIVO** 
+### **2. OBJETIVO** 
 
 Nosso projeto tem como objetivo desenvolver um sistema em duas frentes: uma que explore as relações ecológicas entre plantas no contexto agrícola, considerando aspectos como relações de plantas companheiras, plantas antagônicas, interações com pragas, relação com insetos benéficos e fornecimento de nutrientes, como plantas que fixam nitrogênio ou umidade (água). Com isso, nossa proposta visa gerar insights úteis para agricultores, pesquisadores e profissionais da agricultura sustentável, permitindo uma melhor tomada de decisão no planejamento de cultivos consorciados, proteção do solo e aumento da produtividade de forma ecológica. Enquanto a outra frente visa uma análise de mercado agrícola por região, contendo dados e métricas de produção das culturas em anos anteriores, para assim auxiliar a tomada de decisão quanto a qual cultura investir, avaliando o crescimento em cada setor agrícola. Portanto, uma frente visa auxiliar a tomada de decisão sobre qual cultura investir e plantar, enquanto a outra visa explorar as relações entre culturas para auxiliar e otimizar a produção da mesma.
 
 Do ponto de vista técnico, o projeto tem como objetivo explorar o uso de tecnologias de dados para representar, modelar e analisar redes ecológicas , capturando as múltiplas interações entre plantas, pragas, insetos benéficos e nutrientes. Além disso, busca-se demonstrar a viabilidade e a eficiência da integração entre o banco de dados orientado a grafos Neo4j, o banco de dados orientadora documentos MongoDB e o ambiente de processamento distribuído Apache Spark, aproveitando os pontos fortes de cada tecnologia na manipulação, análise e extração de conhecimento a partir de grandes volumes de dados inter-relacionados.
 
-**FLUXOGRAMA**
+### **3. TECNOLOGIAS**
+
+**Neo4j**<br>
+O armazenamento em Neo4j atuará na frente que visa explorar as relações entre as plantas para utilizar práticas como plantas companheiras e rotação de cultura para otimizar a produção de alguma planta, assim, com ele o usuario pode ter a informação sobre como plantar a cultura que desejar.
+
+Escolhemos utilizar o Neo4j para armazenar e analisar dados sobre relações entre plantas, como no plantio companheiro e na rotação de culturas, pois permite modelar entidades (plantas, pragas, nutrientes) como nós e suas interações como arestas (ex: "atrai", "repele"). Sua abordagem orientada a grafos é ideal para navegar e consultar redes complexas, especialmente com a linguagem Cypher. Além disso, lida melhor com dados semi-estruturados e flexíveis, comuns nesse contexto, enquanto bancos relacionais exigiriam muitas tabelas e perderiam eficiência e flexibilidade.
+
+**Esquema no Neo4j**
+
+<div style="text-align: center;">
+  <img src="https://github.com/user-attachments/assets/a6094d8a-63e8-4dc8-9b0f-6dbdb969b411" alt="Imagem MongoDB" style="width: 40%;">
+</div>
+
+<br>**MongoDB**<br>
+O armazenamento no MongoDB atuará na frente que tem como objetivo indicar ao usuário onde e o que plantar, com informações sobre culturas plantadas em determinadas regiões e períodos. Escolhemos essa tecnologia por sua flexibilidade em lidar com dados heterogêneos e esquemas dinâmicos, o que é ideal para representar a produção agrícola em diferentes países, culturas e anos. Cada documento pode conter métricas variadas de produção, mesmo com campos ausentes ou inconsistentes. Isso facilita a análise de mercado e produção por região, permitindo consultas agregadas e comparações sem a complexidade de joins típicos em bancos relacionais. Além disso, o modelo pode evoluir com o tempo, incluindo novas variáveis conforme necessário, o que favorece análises históricas e comparativas.
+
+**Esquema no MongoDB**
+
+<div style="text-align: center;">
+  <img src="https://github.com/user-attachments/assets/ac6abf6c-85f0-4d3b-a318-1b7971aacdcd" alt="Imagem MongoDB" style="width: 30%;">
+</div>
+
+<br>**Apache Spark**<br>
+O Apache Spark será utilizado, por meio do *Databricks Notebook*, como ferramenta de ETL para extrair dados de múltiplas fontes, transformá-los (limpeza, padronização, enriquecimento) e carregá-los no MongoDB e no Neo4j. Isso porque de acordo com as documentações no Mongo e Neo, existem conectores nativos para eles com o Spark. Além do ETL, o Spark também pensamos em utilizar para análises em larga escala, como agregações complexas e estatísticas relacionadas às relações entre plantas e pragas. 
+
+**Fontes de Dados**<br>
+Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artigos científicos sobre agroecologia, websites especializados em plantio consorciado [3] e [4] e datasets complementares sobre pragas e insetos benéficos, que ajudam a mapear quais espécies são repelidas ou atraídas.
+
+### **4. FLUXOGRAMA**
 
 ![image](https://github.com/user-attachments/assets/1c47097a-e319-405d-a406-ac3253139578)
 
-**FONTES**
+### **5. Consultas**
+
+MongoDB
+- Quais plantas atrapalham outras plantas atraindo a praga Z?
+- Quais plantas ajudam outras plantas atraindo um animal (benéfico)?
+- Qual a produção total da cultura X no Brasil no ano Y?
+- Calcular a produção total de uma categoria no Japão?
+- Listar o top 5 de culturas cultivadas nos países da América do Sul nos últimos 3 anos
+  
+
+Neo4j
+- Quais plantas ajudam outras plantas que repelem a praga X?
+- Quais plantas da mesma categoria se atrapalham?
+- Quais as plantas que mais ajudam as plantas da categoria Y? (ranking: top 3)
+- Quais os gêneros de planta que oferecem maior variedade de mecanismos (analisar relação de mecanismo com gênero e com planta daquele gênero)
+- Para cada planta, liste quantas ou quais plantas ela pode alcançar ajudar com até 2 saltos
+- Qual o menor caminho entre a planta A e a planta B, usando relação AJUDA entre plantas (determinar a ordem em que elas devem estar dispostas umas com as outras)
+- Plantas que oferecendo o mecanismo P ajudam outras plantas? (Pode identificar tanto plantas companheiras quanto rotação de 
+cultura)
+
+### **6. FONTES**
 
 1. Companion Planting | Portland Nursery. Disponível em: <https://www.portlandnursery.com/veggies/companion-planting>.
 2. Rotação de culturas: objetivos, vantagens e desvantagens. Disponível em: <https://brasilescola.uol.com.br/geografia/rotacao-culturas.htm>.
@@ -41,5 +92,6 @@ Do ponto de vista técnico, o projeto tem como objetivo explorar o uso de tecnol
 9. COMPANION_PLANT_WIKIPEDIA. companion_plant_wikipedia. Disponível em: <https://docs.google.com/spreadsheets/d/1U4K93EeOU6V4SZ9AgI3wOeV4kgdW9TmKSY_pIypDA-A/edit#gid=0>. Acesso em: 18 jun. 2025.
 10. PATEL, Y. Vegetables Cultivation Data Exclusive. Disponível em: <https://www.kaggle.com/datasets/ysthehurricane/vegetables-cultivation-data-exclusive?select=vegetablecropNPK.csv>. Acesso em: 18 jun. 2025.
 
+---
+
 Sorocaba, 2025
-> Repositório para o projeto da disciplina de Processamento Massivo de Dados 2025
