@@ -46,7 +46,8 @@ Já os objetivos técnicos são:
 **Neo4j**<br>
 O armazenamento em Neo4j atuará na frente que visa explorar as relações entre as plantas para utilizar práticas como plantas companheiras e rotação de cultura para otimizar a produção de alguma planta, assim, com ele o usuario pode ter a informação sobre como plantar a cultura que desejar.
 
-Escolhemos utilizar o Neo4j para armazenar e analisar dados sobre relações entre plantas, como no plantio companheiro e na rotação de culturas, pois permite modelar entidades (plantas, pragas, nutrientes) como nós e suas interações como arestas (ex: "atrai", "repele"). Sua abordagem orientada a grafos é ideal para navegar e consultar redes complexas, especialmente com a linguagem Cypher. Além disso, lida melhor com dados semi-estruturados e flexíveis, comuns nesse contexto, enquanto bancos relacionais exigiriam muitas tabelas e perderiam eficiência e flexibilidade.
+Escolhemos utilizar o Neo4j para armazenar e analisar dados sobre relações entre plantas, como no plantio companheiro e na rotação de culturas, pois permite modelar entidades (plantas, pragas, nutrientes) como nós e suas interações como arestas (ex: "atrai", "repele"). Sua abordagem orientada a grafos é ideal para navegar e consultar redes complexas, especialmente com a linguagem Cypher, permitindo uma visualização mais clara. <br>
+As relações ficam como o foco, sendo propriedades navegáveis diretamente, permitindo consultas baseadas em caminhos e uma capacidade de compreender não apenas os dados, mas também as relações entre eles. Além disso, lida melhor com dados semi-estruturados e flexíveis, comuns nesse contexto, enquanto bancos relacionais exigiriam muitas tabelas e perderiam eficiência e flexibilidade.
 
 **Esquema no Neo4j**
 
@@ -90,7 +91,6 @@ Neo4j
 - Quais plantas da mesma categoria se atrapalham?
 - Quais as plantas que mais ajudam as plantas da categoria Y? (ranking: top 3)
 - Quais os gêneros de planta que oferecem maior variedade de mecanismos (analisar relação de mecanismo com gênero e com planta daquele gênero)
-- Para cada planta, liste quantas ou quais plantas ela pode alcançar ajudar com até 2 saltos
 - Qual o menor caminho entre a planta A e a planta B, usando relação AJUDA entre plantas (determinar a ordem em que elas devem estar dispostas umas com as outras)
 - Plantas que oferecendo o mecanismo P ajudam outras plantas? (Pode identificar tanto plantas companheiras quanto rotação de 
 cultura)
