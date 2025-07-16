@@ -29,11 +29,11 @@ O principal objetivo deste projeto é desenvolver um sistema de apoio à decisã
 
 2. **Frente Ecológica:** Modelar e analisar as relações ecológicas entre plantas, considerando aspectos como:
 - Cultivos companheiros e antagônicos;
-- Interações com pragas e insetos benéficos;
+- Interações com pragas, insetos e outros animais;
 - Papel de plantas no fornecimento de nutrientes, como fixação de nitrogênio e retenção de umidade no solo.
 
 Essa frente visa auxiliar agricultores e pesquisadores no planejamento de cultivos consorciados, promovendo práticas sustentáveis, aumento da produtividade e proteção ambiental. <br>
-Portanto em resumo o objetivo é gerar insights para um cultivo eficiente, eficiente de um ponto de vista de quais culturas investir e quais culturas estão em alta e com demanda e posteriormente eficiência de um ponto de vista de como otimizar a produção das culturas definidas pelos insights passados, por meio das práticas de plantio companheiro e rotação de cultura.
+Portanto em resumo o objetivo é gerar insights para um cultivo eficiente, eficiente de um ponto de vista de quais culturas investir, quais culturas estão em alta e com demanda no mercado agrícola e posteriormente eficiência de um ponto de vista de como otimizar a produção das culturas definidas pelos insights passados, por meio das práticas de plantio companheiro e rotação de cultura.
 
 Já os objetivos técnicos são:
 - Representar e analisar redes ecológicas complexas utilizando bancos de dados orientados a grafos (Neo4j);
