@@ -78,12 +78,10 @@ Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artig
 ### **5. Consultas**
 
 MongoDB
-- Qual a produção total de soja no Brasil do ano de 2010 até 2019?
-- Qual a produção média da cultura de arroz no Japão, nos ultimos 5 anos?
-- Quais culturas tiveram pouco rendimento na australia nos ultimos 3 anos?
-- Listar o top 5 culturas com maior rendimento na europa
-- Qual a cultura com maior quantidade de área colhida e onde foi colhida?
-- Qual a média de area colhida de cacau na asia?
+- Quais culturas tiveram pouco rendimento na Austrália nos últimos 3 anos?
+- Listar o top 5 culturas com maior produção na Europa
+- Qual a cultura com maior quantidade de área colhida? Onde foi colhida?
+- Qual cultura teve uma grande produção no Brasil em 2018?
   
 
 Neo4j
