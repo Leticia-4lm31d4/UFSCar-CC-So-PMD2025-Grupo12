@@ -60,7 +60,7 @@ O armazenamento no MongoDB atuará na frente que tem como objetivo indicar ao us
 **Esquema no MongoDB**
 
 <div style="text-align: center;">
-  <img width="912" height="607" alt="image" src="https://github.com/user-attachments/assets/3389d54d-161f-40d0-93ad-6320c323519e" />
+  <img src="https://github.com/user-attachments/assets/ac6abf6c-85f0-4d3b-a318-1b7971aacdcd" alt="Imagem MongoDB" style="width: 30%;">
 </div>
 
 <br>**Apache Spark**<br>
@@ -77,11 +77,12 @@ Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artig
 ### **5. Consultas**
 
 MongoDB
-- Quais plantas atrapalham outras plantas atraindo a praga Z?
-- Quais plantas ajudam outras plantas atraindo um animal (benéfico)?
-- Qual a produção total da cultura X no Brasil no ano Y?
-- Calcular a produção total de uma categoria no Japão?
-- Listar o top 5 de culturas cultivadas nos países da América do Sul nos últimos 3 anos
+- Qual a produção total de soja no Brasil do ano de 2010 até 2019?
+- Qual a produção média da cultura de arroz no Japão, nos ultimos 5 anos?
+- Quais culturas tiveram pouco rendimento na australia nos ultimos 3 anos?
+- Listar o top 5 culturas com maior rendimento na europa
+- Qual a cultura com maior quantidade de área colhida e onde foi colhida?
+- Qual a média de area colhida de cacau na asia?
   
 
 Neo4j
