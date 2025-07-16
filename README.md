@@ -51,7 +51,7 @@ Escolhemos utilizar o Neo4j para armazenar e analisar dados sobre relações ent
 **Esquema no Neo4j**
 
 <div style="text-align: center;">
-  <img src="https://github.com/user-attachments/assets/a6094d8a-63e8-4dc8-9b0f-6dbdb969b411" alt="Imagem MongoDB" style="width: 40%;">
+  <img width="853" height="557" alt="image" src="https://github.com/user-attachments/assets/54076d99-4186-42d3-8afb-c851f46306cd" />
 </div>
 
 <br>**MongoDB**<br>
