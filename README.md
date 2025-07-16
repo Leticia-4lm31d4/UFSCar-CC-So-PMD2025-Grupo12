@@ -60,7 +60,7 @@ O armazenamento no MongoDB atuará na frente que tem como objetivo indicar ao us
 **Esquema no MongoDB**
 
 <div style="text-align: center;">
-  <img src="https://github.com/user-attachments/assets/ac6abf6c-85f0-4d3b-a318-1b7971aacdcd" alt="Imagem MongoDB" style="width: 30%;">
+  <img width="912" height="607" alt="image" src="https://github.com/user-attachments/assets/3389d54d-161f-40d0-93ad-6320c323519e" />
 </div>
 
 <br>**Apache Spark**<br>
