@@ -2,6 +2,7 @@
 **CIÊNCIA DA COMPUTAÇÃO** <br>
 **PROCESSAMENTO MASSIVO DE DADOS** <br>
 PROFª. DRª. SAHUDY MONTENEGRO GONZÁLEZ
+---
 <img width="1012" height="568" alt="image" src="https://github.com/user-attachments/assets/740786cc-70e1-4869-9dcb-525cd1d4ead0" />
 ---
 
