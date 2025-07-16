@@ -51,7 +51,7 @@ Escolhemos utilizar o Neo4j para armazenar e analisar dados sobre relações ent
 **Esquema no Neo4j**
 
 <div style="text-align: center;">
-  <img width="853" height="557" alt="image" src="https://github.com/user-attachments/assets/54076d99-4186-42d3-8afb-c851f46306cd" />
+  <img alt="image Neo4j" src="./img/esquemaNeo4j.png" />
 </div>
 
 <br>**MongoDB**<br>
@@ -60,7 +60,7 @@ O armazenamento no MongoDB atuará na frente que tem como objetivo indicar ao us
 **Esquema no MongoDB**
 
 <div style="text-align: center;">
-  <img src="https://github.com/user-attachments/assets/ac6abf6c-85f0-4d3b-a318-1b7971aacdcd" alt="Imagem MongoDB" style="width: 30%;">
+  <img src="./img/esquema-mongo.png" alt="Imagem MongoDB">
 </div>
 
 <br>**Apache Spark**<br>
