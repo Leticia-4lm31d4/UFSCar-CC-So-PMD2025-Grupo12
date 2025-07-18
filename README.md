@@ -1,28 +1,40 @@
-**UNIVERSIDADE FEDERAL DE SÃO CARLOS - *CAMPUS* SOROCABA** <br>
-**CIÊNCIA DA COMPUTAÇÃO** <br>
-**PROCESSAMENTO MASSIVO DE DADOS** <br>
-PROFª. DRª. SAHUDY MONTENEGRO GONZÁLEZ
----
-<img width="1012" height="568" alt="image" src="https://github.com/user-attachments/assets/740786cc-70e1-4869-9dcb-525cd1d4ead0" />
----
+<hr>
 
-**PROJETO PRÁTICO** 
+Projeto de Disciplina – **Relações de plantas e animais para cultivo eficiente**
 
-Grupo 12<br>
-Relações de plantas e animais para cultivo eficiente <br>
+<hr>
 
-**INTEGRANTES**
+Universidade Federal de São Carlos
 
-- Felipe Ottoni Pereira
-- Letícia Almeida Paulino de Alencar Ferreira
+Curso: Bacharelado em Ciência da Computação de Sorocaba
 
-### **1. DESCRIÇÃO DO TEMA** 
+Disciplina: Processamento Massivo de Dados
+
+Professora: Profa. Dra. Sahudy Montenegro González
+<hr>
+
+Grupo 12
+
+**Integrantes**
+
+- Felipe Ottoni Pereira - RA:
+- Letícia Almeida Paulino de Alencar Ferreira - RA: 800480
+
+<hr>
+
+**Resumo:**
+
+>de 3 a 4 linhas explicando o que o projeto faz
+
+<hr>
+
+**1. DESCRIÇÃO DO TEMA** 
 
 O plantio companheiro é uma prática agrícola baseada na combinação de diferentes espécies vegetais em um mesmo espaço, visando benefícios mútuos. Essa técnica contribui para a sustentabilidade da produção, pois reduz o uso de insumos químicos, melhora a saúde do solo e promove o controle natural de pragas. As interações entre as plantas podem ser benéficas, quando uma espécie auxilia no desenvolvimento da outra, seja repelindo pragas, atraindo polinizadores ou melhorando a disponibilidade de nutrientes, ou antagônicas, quando uma prejudica o desenvolvimento da outra, seja por competição por recursos, alelopatia ou atração de pragas indesejadas.
 
 Além das relações diretas entre plantas, outros elementos entram nesse ecossistema agrícola, como insetos benéficos, que polinizam ou predam pragas, pragas específicas, que podem ser repelidas ou atraídas pelas plantas, nutrientes do solo, cuja disponibilidade pode ser alterada por algumas espécies, como as leguminosas, que fixam nitrogênio. Nesse sentido, entender essas relações pode fornecer insights úteis para práticas agrícolas mais produtivas, resilientes e sustentáveis, promovendo um manejo mais inteligente do solo e das espécies cultivadas. Dado que essas relações formam uma rede complexa de interações biológicas, o uso de tecnologias de dados é interessante para mapear, analisar e extrair conhecimento desse sistema.
 
-### **2. OBJETIVO** 
+**2. OBJETIVO** 
 
 O principal objetivo deste projeto é desenvolver um sistema de apoio à decisão para o setor agrícola com duas frentes complementares para gerar um cultivo eficiente:
 
@@ -41,9 +53,20 @@ Já os objetivos técnicos são:
 - Integrar as tecnologias de dados Neo4j, MongoDB e Apache Spark;
 - Demonstrar a viabilidade técnica dessa arquitetura híbrida, explorando o melhor de cada tecnologia no contexto da agricultura de precisão e sustentável.
 
-### **3. TECNOLOGIAS**
+**3. TECNOLOGIAS E COMO FORAM IMPLEMENTADAS**
 
-**Neo4j**<br>
+> Fazer uma mini intro da seção aqui
+
+**Fontes de Dados**<br><br>
+>Atualizar aqui falando mais sobre os datasets <br>
+Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artigos científicos sobre agroecologia, websites especializados em plantio consorciado [3] e [4] e datasets complementares sobre pragas e insetos benéficos, que ajudam a mapear quais espécies são repelidas ou atraídas.
+
+<br>**Apache Spark**<br><br>
+O Apache Spark será utilizado, por meio do *Databricks Notebook*, como ferramenta de ETL para extrair dados de múltiplas fontes, transformá-los (limpeza, padronização, enriquecimento) e carregá-los no MongoDB e no Neo4j. Isso porque de acordo com as documentações no Mongo e Neo, existem conectores nativos para eles com o Spark. Além do ETL, o Spark também pensamos em utilizar para análises em larga escala, como agregações complexas e estatísticas relacionadas às relações entre plantas e pragas. 
+
+<hr>
+
+**Neo4j**<br><br>
 O armazenamento em Neo4j atuará na frente que visa explorar as relações entre as plantas para utilizar práticas como plantas companheiras e rotação de cultura para otimizar a produção de alguma planta, assim, com ele o usuario pode ter a informação sobre como plantar a cultura que desejar.
 
 Escolhemos utilizar o Neo4j para armazenar e analisar dados sobre relações entre plantas, como no plantio companheiro e na rotação de culturas, pois permite modelar entidades (plantas, pragas, nutrientes) como nós e suas interações como arestas (ex: "atrai", "repele"). Sua abordagem orientada a grafos é ideal para navegar e consultar redes complexas, especialmente com a linguagem Cypher, permitindo uma visualização mais clara. <br>
@@ -55,36 +78,189 @@ As relações ficam como o foco, sendo propriedades navegáveis diretamente, per
   <img alt="image Neo4j" src="./img/esquemaNeo4j.png" />
 </div>
 
-<br>**MongoDB**<br>
+<br>
+
+**Implementação**
+
+
+
+<hr>
+
+**MongoDB**<br><br>
 O armazenamento no MongoDB atuará na frente que tem como objetivo indicar ao usuário onde e o que plantar, com informações sobre culturas plantadas em determinadas regiões e períodos. Escolhemos essa tecnologia por sua flexibilidade em lidar com dados heterogêneos e esquemas dinâmicos, o que é ideal para representar a produção agrícola em diferentes países, culturas e anos. Cada documento pode conter métricas variadas de produção, mesmo com campos ausentes ou inconsistentes. Isso facilita a análise de mercado e produção por região, permitindo consultas agregadas e comparações sem a complexidade de joins típicos em bancos relacionais. Além disso, o modelo pode evoluir com o tempo, incluindo novas variáveis conforme necessário, o que favorece análises históricas e comparativas.
 
 **Esquema no MongoDB**
 
-<div style="text-align: center;">
-  <img src="./img/esquema-mongo.png" alt="Imagem MongoDB">
-</div>
+```javascript
+_id: "38"
+continente: "africa" pais: "cabo verde"
+ano: 1982
+▾ culturas: Array (36)
+  ▾ 0: Object
+    nome: "oilcrops"
+    producao_(tonnes): 10082 area_colhida_(ha): 3124
+    rendimento_(hg/ha): 32273
+  ▾ 1: Object
+    nome: "onions, dry" producao_(tonnes) : 300
+    area_colhida_(ha): 20
+    rendimento_(hg/ha): 150000
+```
 
-<br>**Apache Spark**<br>
-O Apache Spark será utilizado, por meio do *Databricks Notebook*, como ferramenta de ETL para extrair dados de múltiplas fontes, transformá-los (limpeza, padronização, enriquecimento) e carregá-los no MongoDB e no Neo4j. Isso porque de acordo com as documentações no Mongo e Neo, existem conectores nativos para eles com o Spark. Além do ETL, o Spark também pensamos em utilizar para análises em larga escala, como agregações complexas e estatísticas relacionadas às relações entre plantas e pragas. 
+**Implementação**
 
-**Fontes de Dados**<br>
-Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artigos científicos sobre agroecologia, websites especializados em plantio consorciado [3] e [4] e datasets complementares sobre pragas e insetos benéficos, que ajudam a mapear quais espécies são repelidas ou atraídas.
 
-### **4. FLUXOGRAMA**
+
+<hr>
+
+<br>**4. FLUXOGRAMA DO SISTEMA**<br>
+
+>Explicar o fluxograma
 
 <img width="1222" height="546" alt="image" src="https://github.com/user-attachments/assets/8b4bf77f-b3ea-44a7-9b1a-8a7084a3d644" />
 
+<br>**5. CONSULTAS E RESULTADOS**<br>
 
-### **5. Consultas**
+**MongoDB**
 
-MongoDB
-- Quais culturas tiveram pouco rendimento na Austrália nos últimos 3 anos?
-- Listar o top 5 culturas com maior produção na Europa
-- Qual a cultura com maior quantidade de área colhida? Onde foi colhida?
-- Qual cultura teve uma grande produção no Brasil em 2018?
+Definições importantes:
+1. Rendimento: o quanto foi produzido de um produto, por unidade de área colhida. 
+2. Produção: quantidade total colhida de um produto.
+3. Área colhida: extensão de terra de onde a produção foi efetivamente colhida. Área plantada != Área colhida
+
+```shell
+db.producao_agricula_final.countDocuments()
+> 12390
+```
+
+- Quais culturas tiveram pouco (rendimento menor que 10.000 hg/ha) rendimento na Austrália nos últimos 3 anos?
+
+```shell
+db.producao_agricola_final.aggregate([
+  { $match: { pais: "australia", ano: { $gte: 2016 } } },
+  { $unwind: "$culturas" },
+  { $match: { "culturas.rendimento_(hg/ha)": { $lt: 10000 } } },
+  {
+    $project: {
+      ano: 1,
+      cultura: "$culturas.nome",
+      rendimento: "$culturas.rendimento_(hg/ha)"
+    }
+  }
+])
   
+> {
+    _id: '17179870612',
+    ano: 2016,
+    cultura: 'safflower seed',
+    rendimento: 5928
+  }
+  {
+    _id: '17179870612',
+    ano: 2016,
+    cultura: 'canary seed',
+    rendimento: 6793
+  }
+```
+  
+- Listar o top 5 culturas com maior produção (toneladas) na Europa (últimos 5 anos)
 
-Neo4j
+```shell
+db.producao_agricola_final.aggregate([
+  { $match: { continente: "europa", ano: { $gte: 2015, $lte: 2019 } } },
+  { $unwind: "$culturas" },
+  { $match: { "culturas.producao_(tonnes)": { $ne: null } } },
+  {
+    $project: {
+      cultura: "$culturas.nome",
+      producao: "$culturas.producao_(tonnes)",
+      pais: 1,
+      ano: 1
+    }
+  },
+  { $sort: { producao: -1 } },
+  { $limit: 5 }
+])
+
+>{
+  _id: '42949674287',
+  pais: 'russian federation',
+  ano: 2017,
+  cultura: 'cereals, total',
+  producao: 131289930
+}
+{
+  _id: '51539608850',
+  pais: 'russian federation',
+  ano: 2019,
+  cultura: 'cereals, total',
+  producao: 117868242
+}
+{
+  _id: '25769805096',
+  pais: 'russian federation',
+  ano: 2016,
+  cultura: 'cereals, total',
+  producao: 117751078
+}
+```
+  
+- Qual a cultura com maior quantidade de área colhida (hectare)? Onde foi colhida? (últimos 10 anos)
+
+```shell
+db.producao_agricola_final.aggregate([
+  { $match: { ano: { $gte: 2009, $lte: 2019 } } },
+  { $unwind: "$culturas" },
+  { $match: { "culturas.area_colhida_(ha)": { $ne: null } } },
+  {
+    $project: {
+      cultura: "$culturas.nome",
+      area: "$culturas.area_colhida_(ha)",
+      pais: 1,
+      continente: 1,
+      ano: 1
+    }
+  },
+  { $sort: { area: -1 } },
+  { $limit: 1 }
+])
+
+> {
+  _id: '779',
+  continente: 'asia',
+  pais: 'china, mainland',
+  ano: 2015,
+  cultura: 'cereals, total',
+  area: 103281871
+}
+```
+
+- Qual cultura teve uma grande produção no Brasil em 2018?
+
+```shell
+db.producao_agricola_final.aggregate([
+  { $match: { pais: "brazil", ano: 2018 } },
+  { $unwind: "$culturas" },
+  { $match: {"culturas.producao_(tonnes)": { $ne: null } } },
+  {
+    $project: {
+      cultura: "$culturas.nome",
+      producao: "$culturas.producao_(tonnes)"
+    }
+  },
+  { $sort: { producao: -1 } },
+  { $limit: 1 }
+])
+
+> {
+  _id: '34359738851',
+  cultura: 'sugar cane',
+  producao: 747060316
+}
+```
+
+<br>
+
+**Neo4j**
 - Quais plantas ajudam outras plantas que repelem a praga X?
 - Quais plantas da mesma categoria se atrapalham?
 - Quais as plantas que mais ajudam as plantas da categoria Y? (ranking: top 3)
@@ -93,7 +269,17 @@ Neo4j
 - Plantas que oferecendo o mecanismo P ajudam outras plantas? (Pode identificar tanto plantas companheiras quanto rotação de 
 cultura)
 
-### **6. FONTES**
+<hr>
+
+**6. CONCLUSÕES**
+
+
+
+**7. DIFICULDADES**
+
+
+
+**8. FONTES**
 
 1. Companion Planting | Portland Nursery. Disponível em: <https://www.portlandnursery.com/veggies/companion-planting>.
 2. Rotação de culturas: objetivos, vantagens e desvantagens. Disponível em: <https://brasilescola.uol.com.br/geografia/rotacao-culturas.htm>.
