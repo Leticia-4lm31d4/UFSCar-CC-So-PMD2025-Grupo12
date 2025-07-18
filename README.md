@@ -53,13 +53,71 @@ Já os objetivos técnicos são:
 - Integrar as tecnologias de dados Neo4j, MongoDB e Apache Spark;
 - Demonstrar a viabilidade técnica dessa arquitetura híbrida, explorando o melhor de cada tecnologia no contexto da agricultura de precisão e sustentável.
 
-**3. TECNOLOGIAS E COMO FORAM IMPLEMENTADAS**
+**3. FONTE DE DADOS**<br><br>
+>Atualizar aqui falando mais sobre os datasets <br>
+Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artigos científicos sobre agroecologia, websites especializados em plantio consorciado [3] e [4] e datasets complementares sobre pragas e insetos benéficos, que ajudam a mapear quais espécies são repelidas ou atraídas. <br><br>
+>
+**3.1 Datasets usados para a frente ecológica de plantio companheiro (Neo4j):** <br> <br>
+- companion_plant_wikipedia___after_prepro-1: 
+<br> Essa é a principal tabela usada para o povoamento no neo4j,as outras tabelas servem como auxiliares para incrementar essa tabela ou auxiliar na limpeza e tratamento dela.
+  - *Common name*: campo com o nome usual da planta (planta podendo representar uma espécie de planta, um gênero de planta ou uma categoria de planta).
+  - *Type*: campo que representa uma categoria na qual a planta está incluída.
+  - *Scientific name*: campo com o nome científico da planta.
+  - *Helps*: campo com uma lista das plantas que a planta representada em *"Common name"* ajuda.
+  - *Helped by*: campo com as plantas que são ajudadas pela planta representada em *"Common name"*.
+  - *Attracts*: Campo com uma lista dos animais que são atraídos pela planta.
+  - *-Repels/distracts*: Campo com uma lista dos animais que são repelidos pela planta.
+  - *Avoid*: campo com todas as plantas que atrapalham a planta representada em *"Common name"*.
+  - *Comments*: campo com uma descrição sobre detalhes e características da planta e de suas relações com outras plantas
+<br>
+<p align="center">
+<img width="1314" height="412" alt="image" src="https://github.com/user-attachments/assets/915edf90-7d02-49e9-b5ee-500640d26c13" /> 
+</p>
+<br> <br>
+
+- tabela_extra_plantas_companheiras___Mecanismos: 
+<br> tabela feita analisando a descrição da coluna *"Comments"* da tabela principal para extrair os tipos de mecanismos de cada planta e adicionar a coluna *Mecanism* na tabela principal
+  - *Plants*: nome usual das plantas.
+  - *Mecansim*: lista de mecanismos que essa planta oferece.
+<br>
+<p align="center">
+<img width="713" height="193" alt="image" src="https://github.com/user-attachments/assets/cc45b029-8ff6-4172-b8f4-14cb43f3a251" />
+</p>
+<br> <br>
+
+- tabela_extra_plantas_companheiras___taxonomia: 
+<br> tabela que contém relações de plantas que estão dentro de determinado grupo, serve como uma tabela extra para incrementar as relações de plantas que estão dentro de determinada categoria, indo além da relação definida pela coluna Type na tabela principal
+  - *from*: contém o nome da categoria.
+  - *to*: contém o nome da planta dentro da categoria.
+<br>
+<p align="center">
+<img width="282" height="185" alt="image" src="https://github.com/user-attachments/assets/b9d44755-c6b7-415e-b3ce-f3a7ca61f673" /> 
+</p>  
+<br> <br>
+
+- tabela_extra_plantas_companheiras___caracteristicas_relacoes: 
+<br> tabela extra construída a partir de detalhes da coluna Comments na tabela principal. A tabela estabelece relações expecíficas extras com alguns motivos do porquê algumas plantas ajudam outras.
+  - *Plant 1*: contém a planta que ajuda
+  - *Plant 2*: contém a planta que é ajudada
+  - Caracteristica/beneficio: contém o motivo ou benefício trazido
+<br>
+<p align="center">
+<img width="604" height="216" alt="image" src="https://github.com/user-attachments/assets/8edd0594-dc0c-4d9f-aa61-3cbc2e98589c" /> 
+</p>
+<br> <br>
+
+- synonym: tabela para substituir palavras por sinônimos para que seja possível fazer a junção de tabelas.
+  - *name*: nome a ser substituido
+  - *synonym*: sinônimo
+<br> <br>
+<p align="center">
+<img width="250" height="337" alt="image" src="https://github.com/user-attachments/assets/d48d5c6d-a99a-48ee-bcf8-d426efed6810" /> 
+</p>  
+<br><br>
+
+**4. TECNOLOGIAS E COMO FORAM IMPLEMENTADAS**
 
 > Fazer uma mini intro da seção aqui
-
-**Fontes de Dados**<br><br>
->Atualizar aqui falando mais sobre os datasets <br>
-Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artigos científicos sobre agroecologia, websites especializados em plantio consorciado [3] e [4] e datasets complementares sobre pragas e insetos benéficos, que ajudam a mapear quais espécies são repelidas ou atraídas.
 
 <br>**Apache Spark**<br><br>
 O Apache Spark será utilizado, por meio do *Databricks Notebook*, como ferramenta de ETL para extrair dados de múltiplas fontes, transformá-los (limpeza, padronização, enriquecimento) e carregá-los no MongoDB e no Neo4j. Isso porque de acordo com as documentações no Mongo e Neo, existem conectores nativos para eles com o Spark. Além do ETL, o Spark também pensamos em utilizar para análises em larga escala, como agregações complexas e estatísticas relacionadas às relações entre plantas e pragas. 
@@ -112,13 +170,13 @@ ano: 1982
 
 <hr>
 
-<br>**4. FLUXOGRAMA DO SISTEMA**<br>
+<br>**5. FLUXOGRAMA DO SISTEMA**<br>
 
 >Explicar o fluxograma
 
 <img width="1222" height="546" alt="image" src="https://github.com/user-attachments/assets/8b4bf77f-b3ea-44a7-9b1a-8a7084a3d644" />
 
-<br>**5. CONSULTAS E RESULTADOS**<br>
+<br>**6. CONSULTAS E RESULTADOS**<br>
 
 **MongoDB**
 
