@@ -326,12 +326,18 @@ WHERE a.name = 'slugs'
 OPTIONAL MATCH (p2) -[h:avoid]-> (p1)
 RETURN p1, p2, r, a, h
 ```
+<div style="text-align: center;">
+  <img alt="image Neo4j" src="./img/Consulta1_neo4j" />
+</div>
   
 - Qual o menor caminho para gerar uma disposição física benéfica entre duas plantas específicas? (o que plantar ao lado do que)
 ```shell
 MATCH p = shortestPath((p1:plant {name: "pumpkin"}) -[:helps*1..5]-> (p2:plant {name: "strawberry"}))
 WHERE ALL(node IN nodes(p) WHERE node:plant)
 ```
+<div style="text-align: center;">
+  <img alt="image Neo4j" src="./img/Consulta2_neo4j" />
+</div>
   
 - Quais são as plantas que ajudam a batata por meio da fixação de nitrogênio?
 ```shell
@@ -339,6 +345,9 @@ MATCH (p1:plant) -[o:offers]-> (m:mecanism {name: 'nitrogen fixation'})
 MATCH(p1)-[h:helps]->(p2 {name: "potato"})
 RETURN p1, p2, h
 ```
+<div style="text-align: center;">
+  <img alt="image Neo4j" src="./img/Consulta3_neo4j" />
+</div>
   
 - Quais são as plantas que mais ajudam plantas que são ervas?
 ```shell
