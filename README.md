@@ -1,6 +1,6 @@
 <hr>
 
-Projeto de Disciplina – **Relações de plantas e animais para cultivo eficiente**
+# Projeto de Disciplina – **Relações de plantas e animais para cultivo eficiente**
 
 <hr>
 
@@ -22,19 +22,19 @@ Grupo 12
 
 <hr>
 
-**Resumo:**
+### **Resumo:**
 
 >de 3 a 4 linhas explicando o que o projeto faz
 
 <hr>
 
-**1. DESCRIÇÃO DO TEMA** 
+## **1. DESCRIÇÃO DO TEMA** 
 
 O plantio companheiro é uma prática agrícola baseada na combinação de diferentes espécies vegetais em um mesmo espaço, visando benefícios mútuos. Essa técnica contribui para a sustentabilidade da produção, pois reduz o uso de insumos químicos, melhora a saúde do solo e promove o controle natural de pragas. As interações entre as plantas podem ser benéficas, quando uma espécie auxilia no desenvolvimento da outra, seja repelindo pragas, atraindo polinizadores ou melhorando a disponibilidade de nutrientes, ou antagônicas, quando uma prejudica o desenvolvimento da outra, seja por competição por recursos, alelopatia ou atração de pragas indesejadas.
 
 Além das relações diretas entre plantas, outros elementos entram nesse ecossistema agrícola, como insetos benéficos, que polinizam ou predam pragas, pragas específicas, que podem ser repelidas ou atraídas pelas plantas, nutrientes do solo, cuja disponibilidade pode ser alterada por algumas espécies, como as leguminosas, que fixam nitrogênio. Nesse sentido, entender essas relações pode fornecer insights úteis para práticas agrícolas mais produtivas, resilientes e sustentáveis, promovendo um manejo mais inteligente do solo e das espécies cultivadas. Dado que essas relações formam uma rede complexa de interações biológicas, o uso de tecnologias de dados é interessante para mapear, analisar e extrair conhecimento desse sistema.
 
-**2. OBJETIVO** 
+## **2. OBJETIVO** 
 
 O principal objetivo deste projeto é desenvolver um sistema de apoio à decisão para o setor agrícola com duas frentes complementares para gerar um cultivo eficiente:
 
@@ -53,13 +53,13 @@ Já os objetivos técnicos são:
 - Integrar as tecnologias de dados Neo4j, MongoDB e Apache Spark;
 - Demonstrar a viabilidade técnica dessa arquitetura híbrida, explorando o melhor de cada tecnologia no contexto da agricultura de precisão e sustentável.
 
-**3. FONTE DE DADOS**<br><br>
+## **3. FONTE DE DADOS**<br><br>
 >Atualizar aqui falando mais sobre os datasets <br>
 Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artigos científicos sobre agroecologia, websites especializados em plantio consorciado [3] e [4] e datasets complementares sobre pragas e insetos benéficos, que ajudam a mapear quais espécies são repelidas ou atraídas. <br><br>
 >
-**3.1 Datasets usados para a frente ecológica de plantio companheiro (Neo4j):** <br> <br>
-- companion_plant_wikipedia___after_prepro-1: 
-<br> Essa é a principal tabela usada para o povoamento no neo4j,as outras tabelas servem como auxiliares para incrementar essa tabela ou auxiliar na limpeza e tratamento dela.
+### **3.1 Datasets usados para a frente ecológica de plantio companheiro (Neo4j):** <br> <br>
+- **companion_plant_wikipedia___after_prepro-1:**
+<br><br> Essa é a principal tabela usada para o povoamento no neo4j,as outras tabelas servem como auxiliares para incrementar essa tabela ou auxiliar na limpeza e tratamento dela.<br><br>
   - *Common name*: campo com o nome usual da planta (planta podendo representar uma espécie de planta, um gênero de planta ou uma categoria de planta).
   - *Type*: campo que representa uma categoria na qual a planta está incluída.
   - *Scientific name*: campo com o nome científico da planta.
@@ -75,8 +75,8 @@ Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artig
 </p>
 <br> <br>
 
-- tabela_extra_plantas_companheiras___Mecanismos: 
-<br> tabela feita analisando a descrição da coluna *"Comments"* da tabela principal para extrair os tipos de mecanismos de cada planta e adicionar a coluna *Mecanism* na tabela principal
+- **tabela_extra_plantas_companheiras___Mecanismos:**
+<br><br> Tabela feita analisando a descrição da coluna *"Comments"* da tabela principal para extrair os tipos de mecanismos de cada planta e adicionar a coluna *Mecanism* na tabela principal. <br><br>
   - *Plants*: nome usual das plantas.
   - *Mecansim*: lista de mecanismos que essa planta oferece.
 <br>
@@ -85,8 +85,8 @@ Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artig
 </p>
 <br> <br>
 
-- tabela_extra_plantas_companheiras___taxonomia: 
-<br> tabela que contém relações de plantas que estão dentro de determinado grupo, serve como uma tabela extra para incrementar as relações de plantas que estão dentro de determinada categoria, indo além da relação definida pela coluna Type na tabela principal
+- **tabela_extra_plantas_companheiras___taxonomia:** 
+<br><br> Tabela que contém relações de plantas que estão dentro de determinado grupo, serve como uma tabela extra para incrementar as relações de plantas que estão dentro de determinada categoria, indo além da relação definida pela coluna Type na tabela principal. <br><br>
   - *from*: contém o nome da categoria.
   - *to*: contém o nome da planta dentro da categoria.
 <br>
@@ -95,8 +95,8 @@ Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artig
 </p>  
 <br> <br>
 
-- tabela_extra_plantas_companheiras___caracteristicas_relacoes: 
-<br> tabela extra construída a partir de detalhes da coluna Comments na tabela principal. A tabela estabelece relações expecíficas extras com alguns motivos do porquê algumas plantas ajudam outras.
+- **tabela_extra_plantas_companheiras___caracteristicas_relacoes:** 
+<br><br>Tabela extra construída a partir de detalhes da coluna Comments na tabela principal. A tabela estabelece relações expecíficas extras com alguns motivos do porquê algumas plantas ajudam outras.<br><br>
   - *Plant 1*: contém a planta que ajuda
   - *Plant 2*: contém a planta que é ajudada
   - Caracteristica/beneficio: contém o motivo ou benefício trazido
@@ -106,7 +106,8 @@ Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artig
 </p>
 <br> <br>
 
-- synonym: tabela para substituir palavras por sinônimos para que seja possível fazer a junção de tabelas.
+- **synonym:**
+<br><br>Tabela para substituir palavras por sinônimos para que seja possível fazer a junção de tabelas. <br><br>
   - *name*: nome a ser substituido
   - *synonym*: sinônimo
 <br> <br>
@@ -115,7 +116,7 @@ Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artig
 </p>  
 <br><br>
 
-**4. TECNOLOGIAS E COMO FORAM IMPLEMENTADAS**
+## **4. TECNOLOGIAS E COMO FORAM IMPLEMENTADAS**
 
 > Fazer uma mini intro da seção aqui
 
@@ -170,13 +171,18 @@ ano: 1982
 
 <hr>
 
-<br>**5. FLUXOGRAMA DO SISTEMA**<br>
+<br>
+
+## **5. FLUXOGRAMA DO SISTEMA**<br>
+
+O fluxo do projeto consistiu em um processo de ETL, utilizando datasets diferentes para ambas as frentes, extraindo-os para um *notebook* individual para cada frente no *databricks*, onde foram realizados os processos de transformação, limpeza e *load*, sendo processados por meio do *PySpark*.   Um notebook realizava o *load* para o um banco de dados MongoDB, enquanto o outro carregava os dados para um banco de dados no Neo4j. Depois dos bancos devidamente povoados, consultas foram realizadas utilizando No MongoDB a interface gráfica Compass e a linguagem MQL, enquanto para o Neo4j foi utilizado o Neo4j Aura com consultas feitas por meio da linguagem Cypher. 
 
 >Explicar o fluxograma
 
 <img width="1222" height="546" alt="image" src="https://github.com/user-attachments/assets/8b4bf77f-b3ea-44a7-9b1a-8a7084a3d644" />
 
-<br>**6. CONSULTAS E RESULTADOS**<br>
+<br>
+## **6. CONSULTAS E RESULTADOS**<br>
 
 **MongoDB**
 
@@ -358,18 +364,24 @@ RETURN p1.name AS plant, count(p1) AS help_count
 ORDER BY help_count DESC
 LIMIT 5
 ```
+<p align="center">
+<img width="330" height="317" alt="image" src="https://github.com/user-attachments/assets/b237545c-fb7a-4afb-b5e3-8dabe113aa71" />
+</p>
 
 <hr>
 
-**6. CONCLUSÕES**
+## **7. CONCLUSÕES**
 
 
 
-**7. DIFICULDADES**
+## **8. DIFICULDADES**
 
+Dentre as dificuldades e limitações enfrentadas na frente 1 destaca-se o esforço para montagem de tabelas extras como a de mecanismos por exemplo, que foi feita de forma manual levando em consideração a forma como os comentários eram flexíveis e muitas vezes desconexos com relação a planta da qual estava descrevendo. Para conseguirmos atingir o planejamento do esquema que estipulamos foi necessária uma análise de comentário linha a linha, identificando possíveis categorias de mecanismos e movendo informações para as posições mais adequadas. <br><br>
+Na parte de transformações e carga, durante a inserção de relações *contains* entre gêneros e plantas - *(g:genre) -[contains]-> (p:plant)* - houve um erro que não conseguimos identificar, o esquema do banco no Neo4j Aura mostra relações de gênero contendo um gênero e de gênero contendo uma categoria, entretando ao realizar consultas *Cypher* procurando essas relações elas não existem, mesmo após investigação dos *dataframes* e *labels* usados no *notebook*, não encontramos nenhum indício de uma tentativa de inserção com esses *labels*. <br><br>
+Além disso outra limitação percebida nessa frente foi que por conta dos formatos dos dados foi necessário singularizar e pluralizar algumas palavras para ser possível realizar as junções necessárias para obter os dataframes corretos para as escritas no Neo4j, foi-se usado funções UDF e a biblioteca *inflect* para tal feito, entretando foi necessário se atentar as exceções como palavras que terminam em "s", mas já estão no singular ou outras palavras que a biblioteca *inflect* não consiga identificar. Para identificar as exceções foram feitas junções e com isso foi criado a lista de exceções,entretanto se os dados fossem muito maiores e dependendo das palavras poderia haver uma limitação e dificuldade na montagem da lista de exceções para a pluralização ou singularização. <br> <br>
+No geral outra limitação percebida foi na integração entre os resultado das duas frentes, houve dificuldade em conseguir juntar os *insights*, ou seja utilizar os resultados de consultas da frente de análise de mercado agrícola como entrada para consultas da frente de plantio companheiro, pois o dataset de plantio companheiro possui bem menos entradas em relação ao de análise de mercado agrícola, fazendo com que muitas plantas levantadas como resultado pela primeira frente não tivesse dados na segunda frente, porém para o processo inverso não haveria tantos problemas, pois a maioria das plantas presentes na frente de plantio coletivo possui entradas na outra frente, então ainda sim seria possível por exemplo analisar as plantas companheiras que vc gostaria de utilizar pela frente dois depois de decidido, levar essas plantas para uma análise do ponto de vista comercial e de mercado, proporcionado pela outra frente. <br>
 
-
-**8. FONTES**
+## **9. FONTES**
 
 1. Companion Planting | Portland Nursery. Disponível em: <https://www.portlandnursery.com/veggies/companion-planting>.
 2. Rotação de culturas: objetivos, vantagens e desvantagens. Disponível em: <https://brasilescola.uol.com.br/geografia/rotacao-culturas.htm>.
