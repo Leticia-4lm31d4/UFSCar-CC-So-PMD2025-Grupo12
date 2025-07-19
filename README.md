@@ -319,13 +319,35 @@ db.producao_agricola_final.aggregate([
 <br>
 
 **Neo4j**
-- Quais plantas ajudam outras plantas que repelem a praga X?
-- Quais plantas da mesma categoria se atrapalham?
-- Quais as plantas que mais ajudam as plantas da categoria Y? (ranking: top 3)
-- Quais os gêneros de planta que oferecem maior variedade de mecanismos (analisar relação de mecanismo com gênero e com planta daquele gênero)
-- Qual o menor caminho entre a planta A e a planta B, usando relação AJUDA entre plantas (determinar a ordem em que elas devem estar dispostas umas com as outras)
-- Plantas que oferecendo o mecanismo P ajudam outras plantas? (Pode identificar tanto plantas companheiras quanto rotação de 
-cultura)
+- Das plantas que repelem lesmas quais outras plantas atrapalham e oferecem risco para o seu cultivo?
+```shell
+MATCH (p2:plant) -[r:`repels/distracts`]-> (a:animal)
+WHERE a.name = 'slugs'
+OPTIONAL MATCH (p2) -[h:avoid]-> (p1)
+RETURN p1, p2, r, a, h
+```
+  
+- Qual o menor caminho para gerar uma disposição física benéfica entre duas plantas específicas? (o que plantar ao lado do que)
+```shell
+MATCH p = shortestPath((p1:plant {name: "pumpkin"}) -[:helps*1..5]-> (p2:plant {name: "strawberry"}))
+WHERE ALL(node IN nodes(p) WHERE node:plant)
+```
+  
+- Quais são as plantas que ajudam a batata por meio da fixação de nitrogênio?
+```shell
+MATCH (p1:plant) -[o:offers]-> (m:mecanism {name: 'nitrogen fixation'})
+MATCH(p1)-[h:helps]->(p2 {name: "potato"})
+RETURN p1, p2, h
+```
+  
+- Quais são as plantas que mais ajudam plantas que são ervas?
+```shell
+MATCH (p1:plant) -[:helps]-> (p2:plant)
+MATCH (p2) <-[:contains]- (c:category {name: 'herb'})
+RETURN p1.name AS plant, count(p1) AS help_count
+ORDER BY help_count DESC
+LIMIT 5
+```
 
 <hr>
 
