@@ -324,7 +324,8 @@ db.producao_agricola_final.aggregate([
 MATCH (p2:plant) -[r:`repels/distracts`]-> (a:animal)
 WHERE a.name = 'slugs'
 OPTIONAL MATCH (p2) -[h:avoid]-> (p1)
-RETURN p1, p2, r, a, h
+OPTIONAL MATCH (p1)-[c:contains]->(p3:plant)
+RETURN p1, p2, r, a, h, p3, c
 ```
 <div style="text-align: center;">
   <img alt="image Neo4j" src="./img/Consulta1_neo4j.png" />
