@@ -182,6 +182,7 @@ O fluxo do projeto consistiu em um processo de ETL, utilizando datasets diferent
 <img width="1222" height="546" alt="image" src="https://github.com/user-attachments/assets/8b4bf77f-b3ea-44a7-9b1a-8a7084a3d644" />
 
 <br>
+
 ## **6. CONSULTAS E RESULTADOS**<br>
 
 **MongoDB**
