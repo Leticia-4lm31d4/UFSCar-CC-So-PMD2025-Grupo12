@@ -134,9 +134,29 @@ Nesta seção, são apresentados os conjuntos de dados utilizados no desenvolvim
 <img src="https://github.com/user-attachments/assets/8eef7458-a273-4366-ae38-da49b218cbc8" /> 
 </p>  
 
+- **dataset_final:**
+<br><br> Esse datatset foi gerado a partir das oprações de tratamento sobre os datasets extraídos dos continentes.<br><br>
+  - *_id*: campo com o identificador do documento.
+  - *continente*: campo com o nome do continente.
+  - *pais*: campo com o nome do país.
+  - *ano*: campo com um ano.
+  - *culturas*: lista de objetos que representam as culturas do país no ano do documento
+      - *nome*: campo com o nome de uma cultura.
+      - *producao_(tonnes)*: campo com o valor em toneladas do quanto foi produzido. 
+      - *area_colhida_(ha)*: campo com o valor em hectares do quanto se teve de área colhida.
+      - *rendimento_(hg/ha)*: campo com o valor em hectagrams/hectares do quanto se teve de rendimento. 
+<br>
+<p align="center">
+<img src="https://github.com/user-attachments/assets/44bb34f0-d340-428b-af62-677b7af23701" /> 
+</p> 
+<br>
+<p align="center">
+<img src="https://github.com/user-attachments/assets/071b225d-7dde-4287-b904-2c43746a5031" /> 
+</p> 
+
 ## **4. TECNOLOGIAS E COMO FORAM IMPLEMENTADAS**
 
-> Fazer uma mini intro da seção aqui
+Esta seção descreve as principais tecnologias adotadas no projeto, destacando suas funcionalidades, porque foram escolhidas e a forma como foram integradas na solução proposta. As subseções a seguir detalham a função de cada tecnologia no projeto e as estratégias adotadas para integrá-las de forma eficiente e coerente com os objetivos da solução desenvolvida.
 
 <br>**Apache Spark**<br><br>
 O Apache Spark será utilizado, por meio do *Databricks Notebook*, como ferramenta de ETL para extrair dados de múltiplas fontes, transformá-los (limpeza, padronização, enriquecimento) e carregá-los no MongoDB e no Neo4j. Isso porque de acordo com as documentações no Mongo e Neo, existem conectores nativos para eles com o Spark. Além do ETL, o Spark também pensamos em utilizar para análises em larga escala, como agregações complexas e estatísticas relacionadas às relações entre plantas e pragas. 
@@ -194,8 +214,7 @@ ano: 1982
 ## **5. FLUXOGRAMA DO SISTEMA**<br>
 
 O fluxo do projeto consistiu em um processo de ETL, utilizando datasets diferentes para ambas as frentes, extraindo-os para um *notebook* individual para cada frente no *databricks*, onde foram realizados os processos de transformação, limpeza e *load*, sendo processados por meio do *PySpark*.   Um notebook realizava o *load* para o um banco de dados MongoDB, enquanto o outro carregava os dados para um banco de dados no Neo4j. Depois dos bancos devidamente povoados, consultas foram realizadas utilizando No MongoDB a interface gráfica Compass e a linguagem MQL, enquanto para o Neo4j foi utilizado o Neo4j Aura com consultas feitas por meio da linguagem Cypher. 
-
->Explicar o fluxograma
+<br>
 
 <img width="1222" height="546" alt="image" src="https://github.com/user-attachments/assets/8b4bf77f-b3ea-44a7-9b1a-8a7084a3d644" />
 
@@ -391,8 +410,13 @@ LIMIT 5
 ## **8. DIFICULDADES**
 
 Dentre as dificuldades e limitações enfrentadas na frente do plantio companheiro destaca-se o esforço para montagem de tabelas extras como a de mecanismos, pois ela foi feita de forma manual por meio da descrição da coluna de comentários, que muitas vezes eram desconexos e muito diverso. Para conseguirmos atingir o planejamento do esquema que estipulamos foi necessária uma análise de comentário linha a linha, identificando as possíveis categorias de mecanismos e movendo detalhes para as posições mais adequadas. <br><br>
+
 Na parte de transformações e carga, durante a inserção de relações *contains* entre gêneros e plantas - *(g:genre) -[contains]-> (p:plant)* - houve um erro que não conseguimos identificar a causa, o esquema do banco no Neo4j Aura mostra relações de gênero contendo um gênero e de gênero contendo uma categoria, entretando ao realizar consultas *Cypher* procurando essas relações elas não existem, mesmo após investigação nos *dataframes* e nos *labels* usados, não encontramos nenhum indício de uma tentativa de inserção com esses *labels*. <br><br>
+
 Além disso outra limitação percebida nessa frente foi que por conta dos formatos dos dados foi necessário singularizar e pluralizar algumas palavras para ser possível realizar as junções necessárias, foi-se usado funções UDF e a biblioteca *inflect* para tal feito, entretando foi necessário se atentar as exceções para palavras que a biblioteca *inflect* não conseguia identificar. Para identificar as exceções foram feitas junções e com isso foi criado a lista de exceções, entretanto se os dados fossem muito maiores essa dificuldade poderia se tornar uma limitação. <br><br>
+
+Já na frente de análise de mercado, as dificuldades enfrentadas foram na etapa de reestruturar o dataset a fim de construir linhas que representassem um documento no mongo para possibilitar o carregamento dos dados no banco. Além disso, houve a tentativa de limpar dos documentos culturas que haviam valores nulos para os três campos (produção, rendimento e área colhida), mas no desenvolvimento da lógica da função que faria isso ao escrever no novo dataset do resultado, a lista de culturas era multiplicada pelo número de culturas, por exemplo, se a linha havia uma lista de 30 culturas, após esse tratamento ela ficava com um lista com 30 listas cada uma com 30 culturas. Desse modo, na etapa de carga ocorria o erro de ultrapassar o espaço de armazenamento grátis disponivel no mongoDB (512Mb). Assim, esse tratamento foi removido, então no banco há culturas com valores nulos, mas isso foi considerado na construção das consultas. <br><br>
+
 No geral outra limitação percebida foi na integração entre os resultado das duas frentes, houve dificuldade em conseguir juntar os *insights*, ou seja utilizar os resultados de consultas da frente de análise de mercado agrícola como entrada para consultas da frente de plantio companheiro, pois o dataset de plantio companheiro possui bem menos entradas em relação ao de análise de mercado agrícola, fazendo com que muitas plantas levantadas como resultado pela primeira frente não tivesse dados na segunda frente, porém para o processo inverso não haveria tantos problemas, pois a maioria das plantas presentes na frente de plantio coletivo possui entradas na outra frente, então ainda sim seria possível por exemplo analisar as plantas companheiras que vc gostaria de utilizar pela frente dois depois de decidido, levar essas plantas para uma análise do ponto de vista comercial e de mercado, proporcionado pela outra frente.<br>
 
 ## **9. FONTES**
