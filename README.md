@@ -2,8 +2,6 @@
 
 # Projeto de Disciplina – **Relações de plantas e animais para cultivo eficiente**
 
-<hr>
-
 Universidade Federal de São Carlos
 
 Curso: Bacharelado em Ciência da Computação de Sorocaba
@@ -53,10 +51,9 @@ Já os objetivos técnicos são:
 - Integrar as tecnologias de dados Neo4j, MongoDB e Apache Spark;
 - Demonstrar a viabilidade técnica dessa arquitetura híbrida, explorando o melhor de cada tecnologia no contexto da agricultura de precisão e sustentável.
 
-## **3. FONTE DE DADOS**<br><br>
->Atualizar aqui falando mais sobre os datasets <br>
-Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artigos científicos sobre agroecologia, websites especializados em plantio consorciado [3] e [4] e datasets complementares sobre pragas e insetos benéficos, que ajudam a mapear quais espécies são repelidas ou atraídas. <br><br>
->
+## **3. FONTE DE DADOS**
+Nesta seção, são apresentados os conjuntos de dados utilizados no desenvolvimento do projeto, com foco em explicar suas estruturas e propósitos dentro da arquitetura adotada. Cada dataset foi escolhido de acordo com a necessidade da frente para a qual foi adotado.<br>
+
 ### **3.1 Datasets usados para a frente ecológica de plantio companheiro (Neo4j):** <br> <br>
 - **companion_plant_wikipedia___after_prepro-1:**
 <br><br> Essa é a principal tabela usada para o povoamento no neo4j,as outras tabelas servem como auxiliares para incrementar essa tabela ou auxiliar na limpeza e tratamento dela.<br><br>
@@ -115,6 +112,27 @@ Nossas fontes de dados, que encontramos até o momento, são tabelas [2] e artig
 <img width="250" height="337" alt="image" src="https://github.com/user-attachments/assets/d48d5c6d-a99a-48ee-bcf8-d426efed6810" /> 
 </p>  
 <br><br>
+
+### **3.2 Datasets usados para a frente análise de Mercado agrécola (MongoDB):** <br><br>
+
+- **df_america (Production_Crops_E_Americas.csv):**
+<br><br> Esse datatset junto aos semelhantes dos outros 4 continentes, foram as principais tabelas utilizadas para o povoamento no mongoDB.<br><br>
+  - *Are Code*: campo com o identificador do país do respectivo continente.
+  - *Area*: campo com o nomes dos países do respectivo continente.
+  - *Item Code*: campo com o identificador de uma cultura.
+  - *Item*: campo com o nome de uma cultura.
+  - *Element Code*: campo com o identificador dos objetos de análise agrícola.
+  - *Element*: campo com o nome de um objeto de análise agrícola, podendo ser:
+      - Rendimento (hg/ha): o quanto foi produzido de um produto, por unidade de área colhida.
+      - Produção (tonelada): quantidade total colhida de um produto.
+      - Área colhida (ha): extensão de terra de onde a produção foi efetivamente colhida. Área plantada != Área colhida
+  - *Unit*: campo com as unidades de seus respectivos objetos de análise agrícola.
+  - *Y[ano]*: campo com a quantidade do objeto de análise agricola da respectiva cultura.
+  - *Y[ano]F*: campo com a fonte da informação sobre a cultura e seu objeto de analise
+<br><br>
+<p align="center">
+<img src="https://github.com/user-attachments/assets/8eef7458-a273-4366-ae38-da49b218cbc8" /> 
+</p>  
 
 ## **4. TECNOLOGIAS E COMO FORAM IMPLEMENTADAS**
 
@@ -186,11 +204,6 @@ O fluxo do projeto consistiu em um processo de ETL, utilizando datasets diferent
 ## **6. CONSULTAS E RESULTADOS**<br>
 
 **MongoDB**
-
-Definições importantes:
-1. Rendimento: o quanto foi produzido de um produto, por unidade de área colhida. 
-2. Produção: quantidade total colhida de um produto.
-3. Área colhida: extensão de terra de onde a produção foi efetivamente colhida. Área plantada != Área colhida
 
 ```shell
 db.producao_agricula_final.countDocuments()
