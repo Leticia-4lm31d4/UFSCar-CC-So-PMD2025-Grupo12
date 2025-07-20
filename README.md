@@ -15,14 +15,14 @@ Grupo 12
 
 **Integrantes**
 
-- Felipe Ottoni Pereira - RA:
+- Felipe Ottoni Pereira - RA: 804317
 - Letícia Almeida Paulino de Alencar Ferreira - RA: 800480
 
 <hr>
 
 ### **Resumo:**
 
->de 3 a 4 linhas explicando o que o projeto faz
+Este projeto propõe um sistema de apoio à decisão agrícola, combinando análise de mercado, em locais e períodos diferentes, com as relações ecológicas entre plantas, animais e seus mecanismos. Assim, ele procura identificar culturas promissoras e otimizar o cultivo por meio do plantio companheiro, promovendo sustentabilidade e produtividade. As tecnologias Neo4j, MongoDB e Spark foram integradas para gerar dados de análise de redes ecológicas e dados de produção.<br>
 
 <hr>
 
@@ -53,6 +53,7 @@ Já os objetivos técnicos são:
 
 ## **3. FONTE DE DADOS**
 Nesta seção, são apresentados os conjuntos de dados utilizados no desenvolvimento do projeto, com foco em explicar suas estruturas e propósitos dentro da arquitetura adotada. Cada dataset foi escolhido de acordo com a necessidade da frente para a qual foi adotado.<br>
+> VOLTAR AQUI
 
 ### **3.1 Datasets usados para a frente ecológica de plantio companheiro (Neo4j):** <br> <br>
 - **companion_plant_wikipedia___after_prepro-1:**
@@ -63,7 +64,7 @@ Nesta seção, são apresentados os conjuntos de dados utilizados no desenvolvim
   - *Helps*: campo com uma lista das plantas que a planta representada em *"Common name"* ajuda.
   - *Helped by*: campo com as plantas que são ajudadas pela planta representada em *"Common name"*.
   - *Attracts*: Campo com uma lista dos animais que são atraídos pela planta.
-  - *-Repels/distracts*: Campo com uma lista dos animais que são repelidos pela planta.
+  - *-Repels/+distracts*: Campo com uma lista dos animais que são repelidos pela planta.
   - *Avoid*: campo com todas as plantas que atrapalham a planta representada em *"Common name"*.
   - *Comments*: campo com uma descrição sobre detalhes e características da planta e de suas relações com outras plantas
 <br>
@@ -117,7 +118,7 @@ Nesta seção, são apresentados os conjuntos de dados utilizados no desenvolvim
 
 - **df_america (Production_Crops_E_Americas.csv):**
 <br><br> Esse datatset junto aos semelhantes dos outros 4 continentes, foram as principais tabelas utilizadas para o povoamento no mongoDB.<br><br>
-  - *Are Code*: campo com o identificador do país do respectivo continente.
+  - *Area Code*: campo com o identificador do país do respectivo continente.
   - *Area*: campo com o nomes dos países do respectivo continente.
   - *Item Code*: campo com o identificador de uma cultura.
   - *Item*: campo com o nome de uma cultura.
@@ -156,7 +157,7 @@ Nesta seção, são apresentados os conjuntos de dados utilizados no desenvolvim
 
 ## **4. TECNOLOGIAS E COMO FORAM IMPLEMENTADAS**
 
-Esta seção descreve as principais tecnologias adotadas no projeto, destacando suas funcionalidades, porque foram escolhidas e a forma como foram integradas na solução proposta. As subseções a seguir detalham a função de cada tecnologia no projeto e as estratégias adotadas para integrá-las de forma eficiente e coerente com os objetivos da solução desenvolvida.
+Esta seção descreve as principais tecnologias adotadas no projeto, destacando suas funcionalidades, porque foram escolhidas e a forma como foram integradas na solução proposta. As subseções a seguir detalham a função de cada tecnologia no projeto e as estratégias adotadas para integrá-las de forma eficiente e coerente com os objetivos da solução desenvolvida. Para mais detalhes, ler a seção sobre o fluxogarma [5]
 
 <br>**Apache Spark**<br><br>
 O Apache Spark será utilizado, por meio do *Databricks Notebook*, como ferramenta de ETL para extrair dados de múltiplas fontes, transformá-los (limpeza, padronização, enriquecimento) e carregá-los no MongoDB e no Neo4j. Isso porque de acordo com as documentações no Mongo e Neo, existem conectores nativos para eles com o Spark. Além do ETL, o Spark também pensamos em utilizar para análises em larga escala, como agregações complexas e estatísticas relacionadas às relações entre plantas e pragas. 
@@ -403,11 +404,7 @@ LIMIT 5
 
 <hr>
 
-## **7. CONCLUSÕES**
-
-
-
-## **8. DIFICULDADES**
+## **7. DIFICULDADES**
 
 Dentre as dificuldades e limitações enfrentadas na frente do plantio companheiro destaca-se o esforço para montagem de tabelas extras como a de mecanismos, pois ela foi feita de forma manual por meio da descrição da coluna de comentários, que muitas vezes eram desconexos e muito diverso. Para conseguirmos atingir o planejamento do esquema que estipulamos foi necessária uma análise de comentário linha a linha, identificando as possíveis categorias de mecanismos e movendo detalhes para as posições mais adequadas. <br><br>
 
@@ -418,6 +415,8 @@ Além disso outra limitação percebida nessa frente foi que por conta dos forma
 Já na frente de análise de mercado, as dificuldades enfrentadas foram na etapa de reestruturar o dataset a fim de construir linhas que representassem um documento no mongo para possibilitar o carregamento dos dados no banco. Além disso, houve a tentativa de limpar dos documentos culturas que haviam valores nulos para os três campos (produção, rendimento e área colhida), mas no desenvolvimento da lógica da função que faria isso ao escrever no novo dataset do resultado, a lista de culturas era multiplicada pelo número de culturas, por exemplo, se a linha havia uma lista de 30 culturas, após esse tratamento ela ficava com um lista com 30 listas cada uma com 30 culturas. Desse modo, na etapa de carga ocorria o erro de ultrapassar o espaço de armazenamento grátis disponivel no mongoDB (512Mb). Assim, esse tratamento foi removido, então no banco há culturas com valores nulos, mas isso foi considerado na construção das consultas. <br><br>
 
 No geral outra limitação percebida foi na integração entre os resultado das duas frentes, houve dificuldade em conseguir juntar os *insights*, ou seja utilizar os resultados de consultas da frente de análise de mercado agrícola como entrada para consultas da frente de plantio companheiro, pois o dataset de plantio companheiro possui bem menos entradas em relação ao de análise de mercado agrícola, fazendo com que muitas plantas levantadas como resultado pela primeira frente não tivesse dados na segunda frente, porém para o processo inverso não haveria tantos problemas, pois a maioria das plantas presentes na frente de plantio coletivo possui entradas na outra frente, então ainda sim seria possível por exemplo analisar as plantas companheiras que vc gostaria de utilizar pela frente dois depois de decidido, levar essas plantas para uma análise do ponto de vista comercial e de mercado, proporcionado pela outra frente.<br>
+
+## **8. CONCLUSÕES**
 
 ## **9. FONTES**
 
