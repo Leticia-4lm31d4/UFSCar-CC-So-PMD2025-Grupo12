@@ -157,7 +157,7 @@ Nesta seção, são apresentados os conjuntos de dados utilizados no desenvolvim
 
 ## **4. TECNOLOGIAS E COMO FORAM IMPLEMENTADAS**
 
-Esta seção descreve as principais tecnologias adotadas no projeto, destacando suas funcionalidades, porque foram escolhidas e a forma como foram integradas na solução proposta. As subseções a seguir detalham a função de cada tecnologia no projeto e as estratégias adotadas para integrá-las de forma eficiente e coerente com os objetivos da solução desenvolvida. Para mais detalhes, ler a seção sobre o fluxogarma [5]
+Esta seção descreve as principais tecnologias adotadas no projeto, destacando suas funcionalidades, porque foram escolhidas e a forma como foram integradas na solução proposta. As subseções a seguir detalham a função de cada tecnologia no projeto e as estratégias adotadas para integrá-las de forma eficiente e coerente com os objetivos da solução desenvolvida. Para mais detalhes, ler a seção sobre o fluxogarma [5].
 
 <br>**Apache Spark**<br><br>
 O Apache Spark será utilizado, por meio do *Databricks Notebook*, como ferramenta de ETL para extrair dados de múltiplas fontes, transformá-los (limpeza, padronização, enriquecimento) e carregá-los no MongoDB e no Neo4j. Isso porque de acordo com as documentações no Mongo e Neo, existem conectores nativos para eles com o Spark. Além do ETL, o Spark também pensamos em utilizar para análises em larga escala, como agregações complexas e estatísticas relacionadas às relações entre plantas e pragas. 
@@ -191,7 +191,8 @@ O armazenamento no MongoDB atuará na frente que tem como objetivo indicar ao us
 
 ```javascript
 _id: "38"
-continente: "africa" pais: "cabo verde"
+continente: "africa"
+pais: "cabo verde"
 ano: 1982
 ▾ culturas: Array (36)
   ▾ 0: Object
