@@ -207,7 +207,30 @@ ano: 1982
 
 **Implementação**
 
+A implementação da frente de análise de mercado iniciou ao encontrarmos os dados relacionados a produção agrícola no mundo [7] e ao analisarmos que suas informações poderiam ser utilizadas em nosso projeto. Nesse sentido, iniciou-se o processo de ETL com a extração dos dados dos *datasets* encontrados para o *notebook databricks*, que depois foram carregados para *dataframes*, por meio do `spark.read`, para que a etapa de transformação fosse realizada. Foram criados um dataframe para cada continente, do mesmo modo com estavam os *datasets* encontrados.
 
+Primeiro, foi realizada a normalização dos dados transformando todos os textos para minúsculo, depois a remoção das colunas que traziam as fontes dos dados de cada indicador, por ano, uma vez que esse dado não será utilizado em nossas análises. A coluna `Item` foi renomeada para `Cultura` para melhor compreensão e leitura dos dados. Adicionamos a coluna `continente` para que ao juntar os dataframes essa informação fosse mantida. Essas operações foram realizadas por meio de funções python com o `pyspark.sql.functions` pois assim foi mais flexível trabalhar com os cinco dataframes criados.
+
+Com as transformações e limpezas iniciais concluídas, iniciamos a reestruturação dos dataframes de modo ao final, obter a estrutura a ser inserida no mongoDB. Para isso foram necessárias duas operações de pivot table. A primeira foi transformar as colunas `Yaaaa` em valores da coluna `ano`, criada nessa etapa. Assim, essa operação resultou em duas colunas novas, `ano` com os números dos anos e `valor` com os números que representam as quantidades dos indicadores agrícolas da coluna `Element`, que antes estavam nas colunas `Yaaa`. Isso aumentou o número de linhas dos dataframes e diminuiu o número de colunas. Depois, houve a transformação do tipo de dados da coluna `valor` de string para float. Já a segunda operação de pivot foi para transformar os dados da coluna `Element` em colunas para cada indicador com sua respectiva unidade de medida. Com isso, as coluna `Unit` e `valor` foram removidas e as colunas area_colhida_(ha), rendimento_(hg/ha) e producao_(tonnes) foram criadas e seus dados são os valores dos índices, que antes estavam na coluna `valor`. Após essas duas operações os cinco dataframes foram unidos, etapa tranquila uma vez que possuem as mesmas colunas.
+
+Por fim, a última etapa do processo de transformação foi o agrupamento por continente, pais (`Area`) e ano para chegar na estrutura final a ser inserida no banco de dados. Com o agrupamento, uma lista de objetos `culturas` foi gerada com os campos nome, `area_colhida_(ha)`, `rendimento_(hg/ha)` e `producao_(tonnes)`. Ela se tornou uma coluna no *dataframe*, removendo as colunas `cultura`,  `area_colhida_(ha)`, `rendimento_(hg/ha)` e `producao_(tonnes)`. Além disso, foi criada a coluna `_id` preenchida sequencialmente para ser o identificador dos documentos. Então, o esquema abaixo foi atingido:
+
+```python
+|-- _id: string (nullable = false)
+|-- continente: string (nullable = false)
+|-- pais: string (nullable = true)
+|-- ano: integer (nullable = false)
+|-- culturas: array (nullable = false)
+|    |-- element: struct (containsNull = false)
+|    |    |-- nome: string (nullable = true)
+|    |    |-- producao_(tonnes): double (nullable = true)
+|    |    |-- area_colhida_(ha): double (nullable = true)
+|    |    |-- rendimento_(hg/ha): double (nullable = true)
+```
+
+Para conectar o *notebook pyspark* com o banco mongoDB a biblioteca `org.mongodb.spark:mongo-spark-connector_2.12:10.5.0` foi instalada no cluster, dessa maneira, a conexão funcionou utilizando a mongo URI do banco e o método `.format("mongodb")` nas operações de *read* e *write* com os *dataframes*. Portanto, para carregar o *dataframe* final gerado, foi realizada a operação `.write.format("mongodb")` com as informações sobre em qual banco e qual coleção ele deveria ser inserido e para verificar a inserção utilizamos a operação de `.read.format("mongodb")`.
+
+A implementação pode ser melhor analisada por meio do notebook `PMD_Projeto_Grupo12_MongoDB.ipynb` presente neste repositório.
 
 <hr>
 
