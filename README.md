@@ -52,8 +52,7 @@ Já os objetivos técnicos são:
 - Demonstrar a viabilidade técnica dessa arquitetura híbrida, explorando o melhor de cada tecnologia no contexto da agricultura de precisão e sustentável.
 
 ## **3. FONTE DE DADOS**
-Nesta seção, são apresentados os conjuntos de dados utilizados no desenvolvimento do projeto, com foco em explicar suas estruturas e propósitos dentro da arquitetura adotada. Cada dataset foi escolhido de acordo com a necessidade da frente para a qual foi adotado.<br>
-> VOLTAR AQUI
+Nesta seção, são apresentados os conjuntos de dados utilizados no desenvolvimento do projeto, com foco em explicar suas estruturas e propósitos dentro da arquitetura adotada. Cada dataset foi escolhido de acordo com a necessidade da frente para a qual foi adotado. Para melhores detalhes de como os *datasets* foram utilizados, leia a na seção 4 as implementações das tecnologias.
 
 ### **3.1 Datasets usados para a frente ecológica de plantio companheiro (Neo4j):** <br> <br>
 - **companion_plant_wikipedia___after_prepro-1:**
