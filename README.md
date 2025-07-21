@@ -180,7 +180,66 @@ As relações ficam como o foco, sendo propriedades navegáveis diretamente, per
 
 **Implementação**
 
+Como explicado anteriormente na seção de Fontes de dados [3]. O *dataset* principal que foi tratado para gerar os *dataframes* responsáveis por realizar a inserção dos nós e dos relacionamentos foi o `companion_plant_wikipedia___after_prepro-1`. Primeiramente foi realizado as importações das bibliotecas necessárias para as transformações e para a conexão com o banco no Neo4j. Depois todos os *datasets* mencionados na seção de fontes e dados [3], foram importados no `DBFS` para serem utilizados.
 
+Depois dentre as transformações e tratamentos necessários, houve um pequeno enriquecimento dos dados, a junção com a tabela de mecanismos para se obter uma coluna de mecanismos e a criação de uma coluna `classification` para auxiliar as inserções dos nós e arestas, indicando de qual *label* o dado se trata. Em geral, foi percebido que para as escritas dos nós era essencial uma coluna com elementos distintos que se quer inserir, já para os relacionamentos era necessário estruturar o *dataframe* com no mínimo duas colunas, uma representando o nó de origem e a outra representando o nó de destino da aresta. Além disso a coluna *classification* foi usada para fazer as filtragens necessárias para assim fixar os *labels* para as escrita no banco.
+
+Outras transformações realizadas foram o uso de funções e da biblioteca `inflect` para singularizar e pluralizar palavras para que assim, fosse possível realizar junções para descobrir seu *label* (a partir da coluna `classification`).
+
+Falando um pouco mais do fluxo do processamento, a coluna `Common Name` foi usada para uma escrita inicial dos nós de `plant`, `genre` e `category`. Depois a coluna `Type` foi utilizada para incrementar as escritas de nós `category` e também a criação de relacionamento `contains` saindo de `category` para outros tipos de nó. A coluna `Scientific name` foi usada, para - utilizando a primeira palavra do nome cientifico - incrementar os nós de `genre` e estabelecer relações de `contains` entre `genre` e `plant`.
+
+Depois foi realizada a criação das função de pluralizar e singularizar palavras, para tratar as palavras dentro das colunas (`Helps`, `Helped by`, `Attracts`, `-Repel/+distracts` e `Avoid`).
+Após a criação dos vetores, da "explosão" deles e da singularização de seus elementos, as colunas `Helps` e `Helped by` tiveram cada uma um *join* com a tabela "principal" para se obter os *labels* dos elementos delas, e depois os dados de ambas foram unidos, levando em consideração a interpretação contrária que as colunas `Helps` e `Helped by` estabelecem com o elemento ao qual elas se referem - quem ajuda e quem é ajudado.
+
+A coluna `Avoid`´ também teve um vetor criado, explodido e seus elementos singularizados, posteriormente sofrendo *joins* para obtenção dos *labels* de seus elementos, e então foi feito a escrita dos relacionamentos `Avoid` no banco. O mesmo processo foi realizado para as colunas `Attracts` e `-Repel/+distracts`, com a exceção de que para elas foi realizado a pluralização de seus elementos e que antes da criação desses relacionamentos foi necessário unir os elementos delas e usar o *distinct* para criação dos nós `animal`. Além disso, também foi realizada a escrita de relacionamentos extras `´Helps`, por meio de outra tabela extra `tabela_extra_plantas_companheiras___caracteristicas_relacoes` - com propriedades específicas entre os dois sujeitos. 
+
+Também houve a criação dos nós de `mecanism` e do relacionamento `offers`, de forma semelhante a criação dos nós e dos relacionamentos envolvendo `animal`, conforme explicado acima.
+Observe que a coluna `classification`´ teve papel fundamental em praticamente todas as escritas no banco, indicando os *labels* para que fosse assim realizado a filtragem possibilitando a escrita dos nós e dos relacionamentos parte por parte.
+
+Para conectar o *notebook pyspark* com o banco mongoDB a biblioteca `org.neo4j:neo4j-connector-apache-spark_2.12:5.3.6_for_spark_3` foi instalada no cluster, dessa maneira, a conexão funcionou definindo as configurações de acesso ao banco no Neo4j e as configurando na construção do *SparkSession*. 
+
+- Exemplo de código para a escrita de nós
+```python
+df_nodes_plant = df_plantas.filter(col("classification") == "plant")\ #filtragem do label
+                .select(col("Common name").alias("name"), lower(col("Scientific name")).alias("scientific_name")) 
+
+(
+    df_nodes_plant.write
+    .format("org.neo4j.spark.DataSource")
+    .mode("append")
+    .option("labels", ":plant") #define o tipo do nó
+    .option("node.keys", "name")  # define chave do nó
+    .save()
+)
+```
+
+- Exemplo de *dataframe* antes da filtragem dos *labels* para inserção das relações:
+<p align="center">
+<img width="742" height="316" alt="image" src="https://github.com/user-attachments/assets/4bbc23a0-120c-4c38-adc8-6120fcf8ab8b" />
+</p>
+
+- Exemplo código para a escrita de relações `plant --> ajuda --> genre`
+```python
+# plant --> ajuda --> genre
+df_help_filtrado = df_help_total.filter(
+    (col("source_label") == "plant") & (col("target_label") == "genre")
+)
+
+(
+    df_help_filtrado.write
+    .format("org.neo4j.spark.DataSource")
+    .mode("append")
+    .option("relationship", "helps")
+    .option("relationship.save.strategy", "keys")
+    .option("relationship.source.labels", ":plant")
+    .option("relationship.source.node.keys", "source_name:name")
+    .option("relationship.target.labels", ":genre")
+    .option("relationship.target.node.keys", "target_name:name")
+    .save()
+)
+```
+
+A implementação pode ser melhor analisada por meio do *notebook* `PMD_Projeto_Grupo12_Neo4j.ipynb` presente neste repositório.
 
 <hr>
 
