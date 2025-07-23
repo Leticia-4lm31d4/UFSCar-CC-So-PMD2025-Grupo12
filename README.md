@@ -113,7 +113,7 @@ Nesta seção, são apresentados os conjuntos de dados utilizados no desenvolvim
 </p>  
 <br><br>
 
-### **3.2 Datasets usados para a frente análise de Mercado agrécola (MongoDB):** <br><br>
+### **3.2 Datasets usados para a frente análise de Mercado agrícola (MongoDB):** <br><br>
 
 - **df_america (Production_Crops_E_Americas.csv):**
 <br><br> Esse datatset junto aos semelhantes dos outros 4 continentes, foram as principais tabelas utilizadas para o povoamento no mongoDB.<br><br>
